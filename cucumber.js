@@ -8,4 +8,5 @@ module.exports = {
     format: ['progress'],
     paths: ['src/test/features/**/*.feature']
   
-};
+}
+}
