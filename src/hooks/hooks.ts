@@ -5,7 +5,9 @@ import {pageFixture} from "./pageFixture";
 let browser: Browser;
 
 Before(async function () {
-    browser = await chromium.launch({ headless: false });
+    browser = await chromium.launch({ 
+        headless: process.env.CI === 'true' // Headless in CI, headed locally
+    });
     const page = await browser.newPage();
     pageFixture.page = page;
 });

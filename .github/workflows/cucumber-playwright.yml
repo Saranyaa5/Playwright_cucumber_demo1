@@ -21,16 +21,16 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
       
-    - name: Run Cucumber Playwright tests
+    - name: Run Cucumber tests
       run: npm test
       env:
         CI: true
-        
+      
     - name: Upload test results
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: cucumber-test-results
+        name: cucumber-reports
         path: |
           test-results/
           playwright-report/
@@ -40,6 +40,6 @@ jobs:
       uses: actions/upload-artifact@v4
       if: failure()
       with:
-        name: test-failure-screenshots
+        name: screenshots
         path: test-results/
         retention-days: 7
