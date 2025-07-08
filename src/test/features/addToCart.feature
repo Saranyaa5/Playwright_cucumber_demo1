@@ -4,7 +4,7 @@ Background:
     Given User navigates to the application
     And User click on the login link
 
-Scenario: Login should be succsess
+Scenario: search books after login
     Given User enter the username as "<username>"
     And the user enter the password as "<password>"
     When User click on the login button

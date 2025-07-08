@@ -4,22 +4,25 @@ import { pageFixture } from '../../hooks/pageFixture';
 
 When('the user searches for a {string}', async function (book) {
     
-    await pageFixture.page.getByPlaceholder('Search books or authors').fill(book);
-    await pageFixture.page.keyboard.press('Enter');
-   
-    await pageFixture.page.waitForLoadState('networkidle');
-});
+     await pageFixture.page.locator("//input[@type='search']").fill(book);
+    const option = await pageFixture.page.locator("mat-option[role='option'] span").first();
+    await option.waitFor({ state: 'visible' });
+    await option.click();
+         });
+
 
 When('the user add the book to the cart', async function () {
-    
-    await pageFixture.page.locator('.card-body').first().click();
-    await pageFixture.page.locator('button:has-text("Add to Cart")').click();
-});
+    const addtoCart = await pageFixture.page.locator("(//span[@class='mdc-button__label'][normalize-space()='Add to Cart'])[1]").first();
+    await addtoCart.waitFor({ state: 'visible' });
+    await addtoCart.click();
+
+    const toast = pageFixture.page.locator("simple-snack-bar");
+    await expect(toast).toBeVisible();
+    await toast.waitFor({ state: 'hidden' });
+         });
 
 Then('the cart badge should get updated', async function () {
-    
-    const cartBadge = pageFixture.page.locator('.cart-badge');
-    await expect(cartBadge).toBeVisible();
-    const badgeText = await cartBadge.textContent();
-    expect(parseInt(badgeText || '0')).toBeGreaterThan(0);
-});
+   const badgelocator = await pageFixture.page.locator("//span[@id='mat-badge-content-0']").textContent();
+    const badgelocatorNumber = parseInt(badgelocator || '0', 10);
+    await expect(badgelocatorNumber).toBeGreaterThan(0);
+         });
