@@ -1,18 +1,22 @@
-Feature:User Authentication tests
+Feature: User Authentication tests
 
 Background:
     Given User navigates to the application
     And User click on the login link
 
-Scenario: search books after login
+Scenario: Add to the cart should be success
     Given User enter the username as "<username>"
-    And the user enter the password as "<password>"
+    And User enter the password as "<password>"
     When User click on the login button
-    When the user searches for a "<book>"
-    When the user add the book to the cart
-    Then the cart badge should get updated
+    Then User search the book "<book>"
+    And User add the book to cart
+    And User can view the book carted 
 
 Examples:
-    |username|password|book|
-    |Sara@123|Sara@123|Java|
-    |Sara@123|Sara@123|Python|
+| username   | password     | book      |
+| Sara@123 | Sara@123   | roomies       |
+
+@fail
+Scenario: Add to cart should be failed
+    Then User search the book "Thealchemist"
+    And User dosent see the book that is provided
