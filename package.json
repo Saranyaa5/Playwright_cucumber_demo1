@@ -7,7 +7,8 @@
     "clean:reports": "rimraf test-results reports",
     "testonly": "cross-env \"npx cucumber-js || exit 0\"",
     "test": "npm run clean:reports && npm run testonly && npm run posttest",
-    "posttest": "echo Running report generator... && npx ts-node src/helper/report.ts"
+    "posttest": "echo Running report generator... && npx ts-node src/helper/report.ts",
+    "test:rerun": "cucumber-js -p rerun @rerun.txt"
   },
   "keywords": [],
   "author": "",
