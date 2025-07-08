@@ -5,3 +5,12 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Generated HTML reports
+/assets/
+/features/
+index.html
+/reports/
+
+# Screenshots and videos
+/screenshots/

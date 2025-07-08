@@ -1,19 +1,17 @@
-Feature:User Authentication tests
+Feature: User Authentication tests
 
 Background:
     Given User navigates to the application
     And User click on the login link
 
-Scenario: Login should be succsess
+Scenario: Login should be success
     Given User enter the username as "Sara@123"
-    And the user enter the password as "Sara@123"
+    And User enter the password as "Sara@123"
     When User click on the login button
-    Then Login should be successful
+    Then Login should be success
 
-Scenario:Login should not succsess
+Scenario: Login should be failed
     Given User enter the username as "Sara@123"
-    And the user enter the password as ""
+    And User enter the password as ""
     When User click on the login button
     Then Login should fail
-
-# https://bookcart.azurewebsites.net/
