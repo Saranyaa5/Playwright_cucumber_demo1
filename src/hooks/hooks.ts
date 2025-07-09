@@ -28,6 +28,8 @@ import { after } from 'node:test';
 import { stat } from 'fs';
 import { getEnv } from '../helper/env/env';
 import { invokeBrowser } from '../helper/browsers/browserManager';
+import { createLogger } from 'winston';
+import { options } from '../helper/util/logger';
 
 let browser: Browser;
 let context: BrowserContext;
@@ -37,10 +39,17 @@ BeforeAll(async function(){
     browser=await invokeBrowser();
     // browser=await chromium.launch({headless:false});
 });
-Before(async function(){
+Before(async function( { pickle }) {
+    const scenarioName = pickle.name + pickle.id;
+
     context=await browser.newContext()
     const page=await context.newPage();
     pageFixture.page=page;
+
+    pageFixture.logger = createLogger(options(scenarioName));
+    
+
+
 });
 After(async function({ pickle, result }) {
     if (result?.status === Status.FAILED) {
@@ -50,8 +59,10 @@ After(async function({ pickle, result }) {
     }
     await pageFixture.page.close();
     await context.close();
+
 });
 
 AfterAll(async function(){
+    pageFixture.logger?.end();
     await browser.close();
 });
