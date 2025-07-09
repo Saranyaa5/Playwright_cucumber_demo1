@@ -56,7 +56,10 @@ Given('User navigates to the application', async function () {
     // browser = await chromium.launch({headless:false});
     // const context = await browser.newContext();
     // page = await context.newPage();
-    await pageFixture.page.goto('https://bookcart.azurewebsites.net/')
+    // await pageFixture.page.goto('https://bookcart.azurewebsites.net/')
+    const baseUrl = process.env.BASEURL;
+    if (!baseUrl) throw new Error('BASEURL is not defined in the environment variables');
+    await pageFixture.page!.goto(baseUrl);
          });
          
 Given('User click on the login link', async function () {
