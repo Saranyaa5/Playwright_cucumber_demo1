@@ -57,10 +57,13 @@ Given('User navigates to the application', async function () {
     // const context = await browser.newContext();
     // page = await context.newPage();
     // await pageFixture.page.goto('https://bookcart.azurewebsites.net/')
+
     const baseUrl = process.env.BASEURL;
     if (!baseUrl) throw new Error('BASEURL is not defined in the environment variables');
     await pageFixture.page!.goto(baseUrl);
+    pageFixture.logger?.info(`Navigated to ${baseUrl}`);
          });
+
          
 Given('User click on the login link', async function () {
     await pageFixture.page.locator("//div[@class='d-flex align-items-center']/button[2]").click();
