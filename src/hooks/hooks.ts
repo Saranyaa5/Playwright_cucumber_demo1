@@ -30,6 +30,8 @@ import { getEnv } from '../helper/env/env';
 import { invokeBrowser } from '../helper/browsers/browserManager';
 import { createLogger } from 'winston';
 import { options } from '../helper/util/logger';
+import HeaderPage from '../pages/headerPage';
+import LoginPage from '../pages/loginPage';
 
 let browser: Browser;
 let context: BrowserContext;
@@ -46,18 +48,23 @@ Before(async function( { pickle }) {
     const page=await context.newPage();
     pageFixture.page=page;
 
+    pageFixture.headerPage = new HeaderPage(page);
+    pageFixture.loginPage = new LoginPage(page);
     pageFixture.logger = createLogger(options(scenarioName));
+   
     
 
 
 });
 After(async function({ pickle, result }) {
-    if (result?.status === Status.FAILED) {
+    if (result?.status === Status.FAILED && pageFixture.page) {
         const img = await pageFixture.page.screenshot({
             path: `./screenshots/${pickle.name}.png`
         });
     }
-    await pageFixture.page.close();
+    if (pageFixture.page) {
+        await pageFixture.page.close();
+    }
     await context.close();
 
 });
