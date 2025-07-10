@@ -1,5 +1,12 @@
 const report = require("multiple-cucumber-html-reporter");
 
+const startTime = new Date();
+const startTimeStr = startTime.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }); // Adjust time zone if needed
+
+// Simulate or retrieve your actual test end time
+const endTime = new Date();
+const endTimeStr = endTime.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+
 report.generate({
   jsonDir: "test-results",
   reportPath: "./",
@@ -23,8 +30,8 @@ report.generate({
       { label: "Project", value: "Custom project" },
       { label: "Release", value: "1.2.3" },
       { label: "Cycle", value: "B11221.34321" },
-      { label: "Execution Start Time", value: "Nov 19th 2017, 02:31 PM EST" },
-      { label: "Execution End Time", value: "Nov 19th 2017, 02:56 PM EST" },
+      { label: "Execution Start Time", value: startTimeStr },
+      { label: "Execution End Time", value: endTimeStr },
     ],
   },
 });
