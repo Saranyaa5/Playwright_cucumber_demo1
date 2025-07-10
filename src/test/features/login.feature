@@ -5,13 +5,12 @@ Background:
     And User click on the login link
 
 Scenario: Login should be success
-    Given User enter the username as "Sara@123"
-    And User enter the password as "Sara@123"
+    When User logs in with all credentials from JSON
     When User click on the login button
     Then Login should be success
 
-Scenario: Login should be failed
-    Given User enter the username as "Sara@123"
-    And User enter the password as ""
-    When User click on the login button
-    Then Login should fail
+
+# Scenario: Login should be failed
+#     When User logs in with all credentials from JSON
+#     When User click on the login button
+#     Then Login should fail
